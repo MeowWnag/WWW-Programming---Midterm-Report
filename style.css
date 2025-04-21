@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #faf8ef;
+    margin: 0;
+    padding: 20px;
+}
+.game-container {
+    text-align: center;
+}
+.score-board {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background-color: #bbada0;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.grid {
+    width: 400px;
+    height: 400px;
+    background-color: #bbada0;
+    border-radius: 10px;
+    display: grid;
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.tile {
+    background-color: #cdc1b4;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #776e65;
+    transition: all 0.1s ease-in-out;
+}
+.tile-2 { background-color: #eee4da; }
+.tile-4 { background-color: #ede0c8; }
+.tile-8 { background-color: #f2b179; }
+.tile-16 { background-color: #f59563; }
+.tile-32 { background-color: #f67c5f; }
+.tile-64 { background-color: #f65e3b; }
+.tile-128 { background-color: #edcf72; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+.tile-256 { background-color: #edcc61; box-shadow: 0 0 8px rgba(0,0,0,0.15); }
+.tile-512 { background-color: #edc850; box-shadow: 0 0 6px rgba(0,0,0,0.1); }
+.tile-1024 { background-color: #edc53f; box-shadow: 0 0 4px rgba(0,0,0,0.05); }
+.tile-2048 { background-color: #edc22e; box-shadow: 0 0 2px rgba(0,0,0,0.05); }
+.tile-4096 { background-color: #3c3a32; color: #f9f6f2; }
+.tile-8192 { background-color: #3c3a32; color: #f9f6f2; }
+.tile-16384 { background-color: #3c3a32; color: #f9f6f2; }
+.tile-32768 { background-color: #3c3a32; color: #f9f6f2; }
+.tile-65536 { background-color: #3c3a32; color: #f9f6f2; }
+.tile-131072 { background-color: #3c3a32; color: #f9f6f2; }
+.game-over, .game-won {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 48px;
+    display: none;
+}
+.game-over button, .game-won button {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
