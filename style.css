@@ -1,3 +1,4 @@
+/* 主要頁面樣式設定 */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -7,9 +8,13 @@ body {
     margin: 0;
     padding: 20px;
 }
+
+/* 遊戲容器置中 */
 .game-container {
     text-align: center;
 }
+
+/* 分數顯示板樣式 */
 .score-board {
     font-size: 24px;
     font-weight: bold;
@@ -20,6 +25,8 @@ body {
     border-radius: 5px;
     display: inline-block;
 }
+
+/* 棋盤格子設定 */
 .grid {
     width: 400px;
     height: 400px;
@@ -31,6 +38,8 @@ body {
     padding: 10px;
     box-sizing: border-box;
 }
+
+/* 方塊通用樣式 */
 .tile {
     background-color: #cdc1b4;
     border-radius: 5px;
@@ -42,6 +51,8 @@ body {
     color: #776e65;
     transition: all 0.1s ease-in-out;
 }
+
+/* 各種數值方塊顏色設定 */
 .tile-2 { background-color: #eee4da; }
 .tile-4 { background-color: #ede0c8; }
 .tile-8 { background-color: #f2b179; }
@@ -59,6 +70,8 @@ body {
 .tile-32768 { background-color: #3c3a32; color: #f9f6f2; }
 .tile-65536 { background-color: #3c3a32; color: #f9f6f2; }
 .tile-131072 { background-color: #3c3a32; color: #f9f6f2; }
+
+/* 遊戲結束與勝利提示覆蓋樣式 */
 .game-over, .game-won {
     position: fixed;
     top: 0;
@@ -74,6 +87,8 @@ body {
     font-size: 48px;
     display: none;
 }
+
+/* 提示按鈕樣式 */
 .game-over button, .game-won button {
     font-size: 24px;
     padding: 10px 20px;
@@ -82,3 +97,19 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* 方塊出現動畫：彈入 */
+@keyframes pop {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* 方塊合併動畫 */
+@keyframes merge {
+    0% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* 套用動畫類別 */
+.tile.new { animation: pop 0.2s ease-out; }
+.tile.merged { animation: merge 0.2s ease-out; }
