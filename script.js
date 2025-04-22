@@ -8,6 +8,7 @@ let score = 0;
 let gameWon = false;
 let newTiles = [];
 let mergedTiles = [];
+let moveMap = [];
 
 // 初始化遊戲棋盤與分數
 function initializeBoard() {
@@ -19,6 +20,7 @@ function initializeBoard() {
     gameWonScreen.style.display = 'none';
     newTiles = [];
     mergedTiles = [];
+    moveMap = Array(4).fill().map(() => Array(4).fill(null));
     addNewTile();
     addNewTile();
     renderBoard();
@@ -43,22 +45,50 @@ function addNewTile() {
 
 // 渲染棋盤與方塊狀態
 function renderBoard() {
-    grid.innerHTML = '';
+    // 只清除舊的tile，保留背景cell
+    const oldTiles = grid.querySelectorAll('.tile');
+    oldTiles.forEach(tile => tile.remove());
+    grid.style.position = 'relative';
+    const gridSize = 4;
+    const gap = 10; // 與CSS一致
+    const gridPadding = 20; // .grid padding: 10px 左右共20
+    const gridWidth = grid.offsetWidth;
+    const tileSize = (gridWidth - gridPadding - gap * (gridSize - 1)) / gridSize;
     for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 4; j++) {
-            const tile = document.createElement('div');
-            tile.className = 'tile';
-            if (newTiles.some(pos => pos.i === i && pos.j === j)) tile.classList.add('new');
-            if (mergedTiles.some(pos => pos.i === i && pos.j === j)) tile.classList.add('merged');
             if (board[i][j] !== 0) {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
                 tile.classList.add(`tile-${board[i][j]}`);
                 tile.textContent = board[i][j];
+                tile.style.position = 'absolute';
+                tile.style.width = tileSize + 'px';
+                tile.style.height = tileSize + 'px';
+                tile.style.left = 10 + j * (tileSize + gap) + 'px';
+                tile.style.top = 10 + i * (tileSize + gap) + 'px';
+                if (newTiles.some(pos => pos.i === i && pos.j === j)) tile.classList.add('new');
+                if (mergedTiles.some(pos => pos.i === i && pos.j === j)) tile.classList.add('merged');
+                if (moveMap[i][j]) {
+                    tile.classList.add('move');
+                    const fromI = moveMap[i][j].fromI;
+                    const fromJ = moveMap[i][j].fromJ;
+                    tile.style.transition = 'none';
+                    tile.style.left = 10 + fromJ * (tileSize + gap) + 'px';
+                    tile.style.top = 10 + fromI * (tileSize + gap) + 'px';
+                    void tile.offsetWidth;
+                    setTimeout(() => {
+                        tile.style.transition = 'left 0.12s, top 0.12s';
+                        tile.style.left = 10 + j * (tileSize + gap) + 'px';
+                        tile.style.top = 10 + i * (tileSize + gap) + 'px';
+                    }, 10);
+                }
+                grid.appendChild(tile);
             }
-            grid.appendChild(tile);
         }
     }
     newTiles = [];
     mergedTiles = [];
+    moveMap = Array(4).fill().map(() => Array(4).fill(null));
 }
 
 // 處理方塊移動與合併邏輯
@@ -66,6 +96,7 @@ function move(direction) {
     let moved = false;
     const newBoard = board.map(row => [...row]);
     const merged = Array(4).fill().map(() => Array(4).fill(false));
+    let newMoveMap = Array(4).fill().map(() => Array(4).fill(null));
 
     if (direction === 'up') {
         for (let j = 0; j < 4; j++) {
@@ -75,6 +106,7 @@ function move(direction) {
                     while (k > 0 && newBoard[k - 1][j] === 0) {
                         newBoard[k - 1][j] = newBoard[k][j];
                         newBoard[k][j] = 0;
+                        newMoveMap[k - 1][j] = { fromI: k, fromJ: j };
                         k--;
                         moved = true;
                     }
@@ -84,6 +116,7 @@ function move(direction) {
                         newBoard[k][j] = 0;
                         merged[k - 1][j] = true;
                         mergedTiles.push({ i: k - 1, j });
+                        newMoveMap[k - 1][j] = { fromI: k, fromJ: j };
                         moved = true;
                         if (newBoard[k - 1][j] === 2048 && !gameWon) {
                             gameWon = true;
@@ -101,6 +134,7 @@ function move(direction) {
                     while (k < 3 && newBoard[k + 1][j] === 0) {
                         newBoard[k + 1][j] = newBoard[k][j];
                         newBoard[k][j] = 0;
+                        newMoveMap[k + 1][j] = { fromI: k, fromJ: j };
                         k++;
                         moved = true;
                     }
@@ -110,6 +144,7 @@ function move(direction) {
                         newBoard[k][j] = 0;
                         merged[k + 1][j] = true;
                         mergedTiles.push({ i: k + 1, j });
+                        newMoveMap[k + 1][j] = { fromI: k, fromJ: j };
                         moved = true;
                         if (newBoard[k + 1][j] === 2048 && !gameWon) {
                             gameWon = true;
@@ -127,6 +162,7 @@ function move(direction) {
                     while (k > 0 && newBoard[i][k - 1] === 0) {
                         newBoard[i][k - 1] = newBoard[i][k];
                         newBoard[i][k] = 0;
+                        newMoveMap[i][k - 1] = { fromI: i, fromJ: k };
                         k--;
                         moved = true;
                     }
@@ -136,6 +172,7 @@ function move(direction) {
                         newBoard[i][k] = 0;
                         merged[i][k - 1] = true;
                         mergedTiles.push({ i, j: k - 1 });
+                        newMoveMap[i][k - 1] = { fromI: i, fromJ: k };
                         moved = true;
                         if (newBoard[i][k - 1] === 2048 && !gameWon) {
                             gameWon = true;
@@ -153,6 +190,7 @@ function move(direction) {
                     while (k < 3 && newBoard[i][k + 1] === 0) {
                         newBoard[i][k + 1] = newBoard[i][k];
                         newBoard[i][k] = 0;
+                        newMoveMap[i][k + 1] = { fromI: i, fromJ: k };
                         k++;
                         moved = true;
                     }
@@ -162,6 +200,7 @@ function move(direction) {
                         newBoard[i][k] = 0;
                         merged[i][k + 1] = true;
                         mergedTiles.push({ i, j: k + 1 });
+                        newMoveMap[i][k + 1] = { fromI: i, fromJ: k };
                         moved = true;
                         if (newBoard[i][k + 1] === 2048 && !gameWon) {
                             gameWon = true;
@@ -174,6 +213,7 @@ function move(direction) {
     }
 
     if (moved) {
+        moveMap = newMoveMap;
         board = newBoard;
         addNewTile();
         renderBoard();

@@ -37,19 +37,44 @@ body {
     gap: 10px;
     padding: 10px;
     box-sizing: border-box;
+    position: relative;
+}
+
+/* 背景格子樣式，讓格線明顯 */
+.cell {
+    background: #cdc1b4;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
 }
 
 /* 方塊通用樣式 */
 .tile {
-    background-color: #cdc1b4;
-    border-radius: 5px;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 32px;
     font-weight: bold;
     color: #776e65;
-    transition: all 0.1s ease-in-out;
+    border-radius: 5px;
+    z-index: 2;
+    /* 動畫 */
+    transition: left 0.12s, top 0.12s, background 0.2s;
+}
+
+/* 動畫：移動方塊 */
+.moveTile{
+    width:100px;
+    height:100px;
+    color:#fff;
+    position:absolute;
+    transition:left 100ms ease-in,top 100ms ease-in,visibility 5ms linear 100ms; 
+  }
+
+/* 隱藏動畫用的樣式 */
+.moveTile .hidden{
+    visibility:hidden !important;
 }
 
 /* 各種數值方塊顏色設定 */
