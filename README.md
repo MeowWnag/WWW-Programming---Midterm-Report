@@ -28,6 +28,6 @@
 
 ## ▶️ 開始使用
 下載或 clone 此專案後，直接打開 `index.html` 即可在瀏覽器中開始遊戲。  
-或開啟GitHub Page: https://github.com/MeowWnag/WWW-Programming---Midterm-Report/deployments/github-pages  
+或開啟GitHub Page: [https://github.com/MeowWnag/WWW-Programming---Midterm-Report/deployments/github-pages](https://meowwnag.github.io/WWW-Programming---Midterm-Report/)  
 ---
 
