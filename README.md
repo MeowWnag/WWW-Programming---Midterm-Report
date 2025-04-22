@@ -1,6 +1,8 @@
 
 # 2048 遊戲（JavaScript 網頁版）
 
+411034018 軟體四 王奕晨
+
 這是一個使用 HTML5、CSS 和 JavaScript 製作的 2048 遊戲網頁版。
 
 ## 📌 專案介紹
@@ -9,7 +11,7 @@
 ## 🎯 專案需求
 - 支援基本遊戲邏輯（方塊移動、合併、分數計算）
 - 遊戲結束與勝利提示
-- 動畫效果（方塊出現與合併）
+- 動畫效果（方塊出現、移動與合併）
 - 鍵盤操作控制遊戲
 - 響應式排版適應不同解析度
 
@@ -22,11 +24,10 @@
 
 ## 📂 資料來源
 - 所有資料與邏輯皆由原生 JavaScript 撰寫，無外部 API。
-- 遊戲樣式與顏色設計仿照經典 2048 遊戲風格（https://play2048.co）。
+- 遊戲樣式與顏色設計仿照經典 2048 遊戲風格。
 
 ## ▶️ 開始使用
 下載或 clone 此專案後，直接打開 `index.html` 即可在瀏覽器中開始遊戲。
-
+或開啟GitHub Page: https://github.com/MeowWnag/WWW-Programming---Midterm-Report/deployments/github-pages  
 ---
 
-Made with ❤️ by 你
