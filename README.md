@@ -27,7 +27,7 @@
 - 遊戲樣式與顏色設計仿照經典 2048 遊戲風格。
 
 ## ▶️ 開始使用
-下載或 clone 此專案後，直接打開 `index.html` 即可在瀏覽器中開始遊戲。
+下載或 clone 此專案後，直接打開 `index.html` 即可在瀏覽器中開始遊戲。  
 或開啟GitHub Page: https://github.com/MeowWnag/WWW-Programming---Midterm-Report/deployments/github-pages  
 ---
 
