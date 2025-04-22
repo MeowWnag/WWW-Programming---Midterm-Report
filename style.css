@@ -111,6 +111,7 @@ body {
     color: white;
     font-size: 48px;
     display: none;
+    z-index: 1000;
 }
 
 /* 提示按鈕樣式 */
